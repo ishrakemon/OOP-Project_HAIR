@@ -8,6 +8,6 @@ This is a educational C++ project designed for Hair Styling using Object-Oriente
   Polymorphism
 
   ## Author
-  **Ishrakuzzaman Emon**
-  Faculty of Mathematics and Computer Science
-  **University of Lodz**
+  **Ishrakuzzaman Emon**<br>
+  _Faculty of Mathematics and Computer Science_<br>
+  _**University of Lodz**_<br>
