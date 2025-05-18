@@ -71,7 +71,7 @@ public:
 };
 
 //Tools that cut Hair: Scissors Class
-class Scissors: public StylingTool{
+class Scissors: public StylingTool {
 public:
     void useTool(Hair& hair) 
     {
@@ -83,7 +83,25 @@ public:
     }
 };
 
+//Tool that changes hair color: Dye Class
+class Dye: public StylingTool {
+private:
+    std::string dyeColor; //Color to apply on hair
 
+public:
+    Dye(std::string color) {
+        dyeColor = color;
+    }
+
+    void useTool(Hair& hair)
+    {
+        std::cout << "Dyeing hair with " << dyeColor <<".\n";
+        hair.setColor(dyeColor);
+        hair.setCondition("Damaged");
+        hair.applyStyle("Dye");
+        std::cout << "Hair is now "<< dyeColor <<" but damaged.\n";
+    }
+};
 
 int main()
 {
