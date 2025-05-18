@@ -37,13 +37,39 @@ public:
         else length = 0;
     }
     void setCondition(std::string cond) {condition = cond;}
-    
 
+    //Change hair based on Styling (Polymorphism)
+    void applyStyle(std::string styleType) 
+    {
+        std::cout <<"Styling "<< texture <<" hair with "<<styleType<<".\n";
+        if(texture == "Curly" && styleType == "Straighten")
+        {
+            std::cout <<"Curly hair stays curly, resists straightening!\n";
+        }
+        else if(texture == "Straight" && styleType=="Curl")
+        {
+            texture = "Curly";
+            std::cout <<"Sstraight hair is now Curly!\n";
+        }
+        else
+        {
+            std::cout <<"Style applied normally.\n";
+        }
+    }
 
-
-
-
+    //Shows the hair's current state
+    void display(){
+        std::cout<<"Hair: Color= "<< color <<", Texture= "<< texture <<", Length= "<< length <<"cm, Condition= "<< condition <<"\n";
+    }
 };
+
+//Abstract Base Class
+class StylingTool{
+public:
+    virtual void useTool(Hair& hair)= 0; //Virtual function that can not used directly
+    virtual ~StylingTool() {} //Virtual destructor for cleanup
+};
+
 
 int main()
 {
