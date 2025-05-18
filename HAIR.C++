@@ -70,6 +70,20 @@ public:
     virtual ~StylingTool() {} //Virtual destructor for cleanup
 };
 
+//Tools that cut Hair: Scissors Class
+class Scissors: public StylingTool{
+public:
+    void useTool(Hair& hair) 
+    {
+        std::cout<< "Cutting hair with Scissors.\n";
+        hair.setLength(hair.getLength() - 0.5); // Cut 5cm
+        hair.setCondition("Healthy");
+        hair.applyStyle("Cut");
+        std::cout<< "Hair is now 5cm shorter and healthier.\n";
+    }
+};
+
+
 
 int main()
 {
