@@ -103,6 +103,43 @@ public:
     }
 };
 
+//Tool that curls hair
+class curlingIron: public StylingTool{
+public:
+//Makes hair curly and damages condition
+    void useTool(Hair& hair) override {
+        std::cout<<"Curling hair with Curling Iron.\n";
+        hair.setTexture("Curly");
+        hair.setCondition("Damaged");
+        hair.applyStyle("Curl");
+
+        std::cout<<"Hair is curly but damaged.\n";
+    }
+};
+
+//Avatar: Represent a person with hair
+class Avatar {
+private:
+    std::string name; //Name of the Avatar
+    Hair hair; //Stores all the hair information
+
+public:
+    Avatar(std::string n, Hair h) {
+        name = n;
+        hair = h;
+    }
+
+    void styleHair(StylingTool& tool){
+        std::cout<<name<<" is styling their hair.\n";
+        tool.useTool(hair);
+    }
+
+    void display() {
+        std::cout<<"Avatar: "<<name<<"\n.";
+        hair.display(hair);
+    }
+};
+
 int main()
 {
     std::cout<<"===================="<<std::endl;
@@ -112,6 +149,10 @@ int main()
     //Variables to store user inputs
     std::string name, color, texture, condition;
     double length;
+
+    //Avatar Name
+    std::cout<<"Enter your avatar's name: ";
+    std::getline(std::cin, name);
 
     std::cout<< "Enter Your Hair Color: ";
     std::getline(std::cin, color); //Using getlines so that it reads everything until the Enter key is pressed — including spaces
