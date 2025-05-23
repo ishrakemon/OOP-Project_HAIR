@@ -104,7 +104,7 @@ public:
 };
 
 //Tool that curls hair
-class curlingIron: public StylingTool{
+class CurlingIron: public StylingTool{
 public:
 //Makes hair curly and damages condition
     void useTool(Hair& hair) override {
@@ -136,7 +136,7 @@ public:
 
     void display() {
         std::cout<<"Avatar: "<<name<<"\n.";
-        hair.display(hair);
+        hair.display();
     }
 };
 
@@ -152,7 +152,7 @@ int main()
 
     //Avatar Name
     std::cout<<"Enter your avatar's name: ";
-    std::getline(std::cin, name);
+    std::getline(std::cin, name); //For giving space in name
 
     std::cout<< "Enter Your Hair Color: ";
     std::getline(std::cin, color); //Using getlines so that it reads everything until the Enter key is pressed — including spaces
@@ -164,6 +164,18 @@ int main()
     std::cout<< "Enter Your Hair Condition: ";
     std::getline(std::cin, condition);
 
+    Hair hair(color, texture, length, condition);
+    Avatar avatar(name, hair);
+
+    //Styling tools
+    Scissors Scissors;
+    std::cout<<"Enter dye color: ";
+    std::string dyeColor;
+    std::getline(std::cin, dyeColor);
+    Dye dye(dyeColor);
+    CurlingIron curlingIron;
+
+    std::vector<StylingTool*> tools = {&Scissors, &dye, &curlingIron}; //Storing pointers to objects
 
     return 0;
 }
