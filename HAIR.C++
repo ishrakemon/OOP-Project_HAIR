@@ -17,7 +17,7 @@ public:
         //Object's member variables
         color= c;
         texture= t;
-        length= l;
+        length= (l>=0)? l:0; //Prevent negative length
         condition= cond;
     }
 
@@ -38,7 +38,7 @@ public:
     }
     void setCondition(std::string cond) {condition = cond;}
 
-    //Change hair based on Styling (Polymorphism)
+    //Change hair based on Styling action (Polymorphism)
     void applyStyle(std::string styleType) 
     {
         std::cout <<"Styling "<< texture <<" hair with "<<styleType<<".\n";
@@ -49,7 +49,7 @@ public:
         else if(texture == "Straight" && styleType=="Curl")
         {
             texture = "Curly";
-            std::cout <<"Sstraight hair is now Curly!\n";
+            std::cout <<"Straight hair is now Curly!\n";
         }
         else
         {
@@ -66,7 +66,7 @@ public:
 //Abstract Base Class
 class StylingTool{
 public:
-    virtual void useTool(Hair& hair)= 0; //Virtual function that can not used directly
+    virtual void useTool(Hair& hair)= 0; //Virtual function that can not used directly and define how it styles hair
     virtual ~StylingTool() {} //Virtual destructor for cleanup
 };
 
@@ -90,9 +90,9 @@ private:
 
 public:
     Dye(std::string color) {
-        dyeColor = color;
+        dyeColor = color; //Constructor: Sets the dye's color
     }
-
+// Defines how dye effects hair
     void useTool(Hair& hair)
     {
         std::cout << "Dyeing hair with " << dyeColor <<".\n";
@@ -107,12 +107,11 @@ public:
 class CurlingIron: public StylingTool{
 public:
 //Makes hair curly and damages condition
-    void useTool(Hair& hair) override {
+    void useTool(Hair& hair) {
         std::cout<<"Curling hair with Curling Iron.\n";
         hair.setTexture("Curly");
         hair.setCondition("Damaged");
         hair.applyStyle("Curl");
-
         std::cout<<"Hair is curly but damaged.\n";
     }
 };
@@ -152,30 +151,73 @@ int main()
 
     //Avatar Name
     std::cout<<"Enter your avatar's name: ";
-    std::getline(std::cin, name); //For giving space in name
+    std::getline(std::cin, name); //Allows space in name
 
     std::cout<< "Enter Your Hair Color: ";
     std::getline(std::cin, color); //Using getlines so that it reads everything until the Enter key is pressed — including spaces
     std::cout<< "Enter Your Hair Texture: ";
     std::getline(std::cin, texture); 
-    std::cout<< "Enter Hair Length in cm: ";
-    std::cin>>length;
+    do
+    {
+        std::cout<< "Enter Hair Length in cm: ";
+        std::cin>>length;
+
+        if(length<0)
+        {
+            std::cout<<"Length cannot be negative! Try again.\n";
+        }
+    } while (length<0);
     std::cin.ignore(); //Clear newline from input buffer
     std::cout<< "Enter Your Hair Condition: ";
     std::getline(std::cin, condition);
 
+    // Create hair and avatar
     Hair hair(color, texture, length, condition);
     Avatar avatar(name, hair);
 
     //Styling tools
-    Scissors Scissors;
+    Scissors scissors;
     std::cout<<"Enter dye color: ";
     std::string dyeColor;
     std::getline(std::cin, dyeColor);
     Dye dye(dyeColor);
     CurlingIron curlingIron;
 
-    std::vector<StylingTool*> tools = {&Scissors, &dye, &curlingIron}; //Storing pointers to objects
+    //Store tools in a list
+    std::vector<StylingTool*> tools = {&scissors, &dye, &curlingIron}; //Storing pointers to objects
+
+    //Showing Initial state
+    std::cout<<"\nInitial State:\n";
+    avatar.display();
+    std::cout<<"\n";
+
+    //INteractive menu loop
+    int choice;
+    do
+    {
+        std::cout<<"Choose a styling tool: \n.";
+        std::cout<<"1. Scissors\n2. Dye\n3. Curling Iron\n4. Exit\n";
+        std::cout<<"Enter choice (1-4): ";
+        std::cin>>choice;
+
+        std::cin.ignore(); //To cleare newline
+
+        if (choice >=1 && choice <=3)
+        {
+            avatar.styleHair(*tools[choice - 1]);
+            std::cout<<"\nUpdate State: \n";
+            avatar.display();
+            std::cout<<"\n";
+        }
+        else if (choice!=4)
+        {
+            std::cout<<"Invalid choice! Please enter 1-4.\n\n";
+        }   
+        
+    } while (choice != 4);
+
+    std::cout<<"Thank You for using Hair styling Simulator!\n";
+    
 
     return 0;
 }
