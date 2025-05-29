@@ -76,7 +76,7 @@ public:
     void useTool(Hair& hair) 
     {
         std::cout<< "Cutting hair with Scissors.\n";
-        hair.setLength(hair.getLength() - 0.5); // Cut 5cm
+        hair.setLength(hair.getLength() - 0.5); // Cut 0.5cm
         hair.setCondition("Healthy");
         hair.applyStyle("Cut");
         std::cout<< "Hair is now 5cm shorter and healthier.\n";
@@ -123,9 +123,8 @@ private:
     Hair hair; //Stores all the hair information
 
 public:
-    Avatar(std::string n, Hair h) {
-        name = n;
-        hair = h;
+    Avatar(std::string n, Hair h) : name(n), hair(h) {
+        //Initialization is done in the initializer list
     }
 
     void styleHair(StylingTool& tool){
@@ -134,7 +133,7 @@ public:
     }
 
     void display() {
-        std::cout<<"Avatar: "<<name<<"\n.";
+        std::cout<<"Avatar: "<<name<<"\n";
         hair.display();
     }
 };
@@ -177,17 +176,15 @@ int main()
 
     //Styling tools
     Scissors scissors;
-    std::cout<<"Enter dye color: ";
-    std::string dyeColor;
-    std::getline(std::cin, dyeColor);
-    Dye dye(dyeColor);
     CurlingIron curlingIron;
 
     //Store tools in a list
-    std::vector<StylingTool*> tools = {&scissors, &dye, &curlingIron}; //Storing pointers to objects
+    std::vector<StylingTool*> tools = {&scissors, nullptr, &curlingIron}; //Storing pointers to objects
 
     //Showing Initial state
     std::cout<<"\nInitial State:\n";
+        std::cout<<"-----------------\n";
+
     avatar.display();
     std::cout<<"\n";
 
@@ -195,14 +192,29 @@ int main()
     int choice;
     do
     {
-        std::cout<<"Choose a styling tool: \n.";
+        std::cout<<"Choose a styling tool:\n";
+        std::cout<<"----------------------\n";
+
         std::cout<<"1. Scissors\n2. Dye\n3. Curling Iron\n4. Exit\n";
-        std::cout<<"Enter choice (1-4): ";
+        std::cout<<"\nEnter choice (1-4): ";
         std::cin>>choice;
 
         std::cin.ignore(); //To cleare newline
 
-        if (choice >=1 && choice <=3)
+        if (choice ==2)
+        {
+            std::string dyeColor; //Declaration for dyeColor
+            std::cout<<"Enter dye color: ";
+            std::getline(std::cin, dyeColor);
+            Dye dye(dyeColor);
+            avatar.styleHair(dye);
+            std::cout<<"\nUpdate State: \n";
+            avatar.display();
+            std::cout<<"\n";
+
+        }
+        
+        else if (choice >=1 && choice <=3)
         {
             avatar.styleHair(*tools[choice - 1]);
             std::cout<<"\nUpdate State: \n";
