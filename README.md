@@ -1,11 +1,20 @@
-# OOP-Project_HAIR
-This is a educational C++ project designed for Hair Styling using Object-Oriented Programming principles.
+# Hair Styling Simulator
+_A simple **C++ Object-Oriented Programming (OOP)** project that simulates hair styling for an avatar using different tools like scissors, dye, and a curling iron._
 
 ## Features
-- Model Realistic hair with properties like color, texture, length and condition.
+_Create a custom avatar with personalized **hair color**, **texture**, **length**, and **condition**_
 
-  ## OOP Concepts Demonstrated
-  Polymorphism
+* Demonstrates core OOP principles:
+
+  * **Encapsulation** (`Hair` class uses private members with setters/getters)
+  * **Inheritance** (styling tools inherit from `StylingTool`)
+  * **Polymorphism** (virtual `useTool` method for tools)
+  * **Composition** (`Avatar` has a `Hair` object)
+
+## Styling Tools
+* **Scissors** – Cuts hair by 5 cm and improves condition
+* **Dye** – Changes hair color but damages the condition
+* **Curling Iron** – Makes hair curly and causes slight damage
 
   ## Author
   **Ishrakuzzaman Emon**<br>
