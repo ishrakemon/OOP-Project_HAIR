@@ -175,6 +175,12 @@ void runTests()
     assert(testHair.getColor()== "Green");
     assert(testHair.getCondition()== "Damaged");
 
+    //Test for curling hair
+    CurlingIron curler;
+    curler.useTool(testHair);
+    assert(testHair.getTexture()== "Curly");
+    assert(testHair.getCondition()== "Damaged");
+
     std::cout<<"All tests Passed successfully!\n\n";
 }
 
