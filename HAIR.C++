@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cassert> //Library for running tests
 
 class Hair {
     //Only Hair Class can directly access this variables and thus prevents accidental modification.
@@ -137,9 +138,26 @@ public:
         hair.display();
     }
 };
+//For Test
+void runTests()
+{
+    std::cout<<"Running Tests...\n";
+    Hair testHair("Black", "Straight", 23.0, "Healthy");
+
+    assert(testHair.getColor()=="Black");
+    assert(testHair.getTexture()=="Straight");
+    assert(testHair.getLength()==23.0);
+    assert(testHair.getCondition()== "Healthy");
+
+    std::cout<<"All tests Passed successfully!\n\n";
+}
+
+
 
 int main()
 {
+    runTests(); //To run the test
+
     std::cout<<"===================="<<std::endl;
     std::cout<<"|       HAIR       |"<<std::endl;
     std::cout<<"===================="<<std::endl;
