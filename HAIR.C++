@@ -80,7 +80,7 @@ public:
         hair.setLength(hair.getLength() - 0.5); // Cut 0.5cm
         hair.setCondition("Healthy");
         hair.applyStyle("Cut");
-        std::cout<< "Hair is now 5cm shorter and healthier.\n";
+        std::cout<< "Hair is now 0.5cm shorter and healthier.\n";
     }
 };
 
@@ -162,11 +162,18 @@ void runTests()
     assert(testHair.getLength()==19.5);
     assert(testHair.getCondition()== "Damaged");
 
+    //Tesst for cutting hair
     Scissors scissors;
     double initialLength= testHair.getLength();
     scissors.useTool(testHair);
     assert(testHair.getLength()==initialLength - 0.5);
     assert(testHair.getCondition()=="Healthy");
+
+    //Test for dying hair
+    Dye dyeTool("Green");
+    dyeTool.useTool(testHair);
+    assert(testHair.getColor()== "Green");
+    assert(testHair.getCondition()== "Damaged");
 
     std::cout<<"All tests Passed successfully!\n\n";
 }
