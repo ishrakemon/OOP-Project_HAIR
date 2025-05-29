@@ -143,11 +143,30 @@ void runTests()
 {
     std::cout<<"Running Tests...\n";
     Hair testHair("Black", "Straight", 23.0, "Healthy");
-
+    
+    //Checks if the initial data are correct
     assert(testHair.getColor()=="Black");
     assert(testHair.getTexture()=="Straight");
     assert(testHair.getLength()==23.0);
     assert(testHair.getCondition()== "Healthy");
+
+    //Giving different data to test
+    testHair.setColor("Red");
+    testHair.setTexture("Curly");
+    testHair.setLength(19.5);
+    testHair.setCondition("Damaged");
+
+    //Checks the new data are correct
+    assert(testHair.getColor()=="Red");
+    assert(testHair.getTexture()=="Curly");
+    assert(testHair.getLength()==19.5);
+    assert(testHair.getCondition()== "Damaged");
+
+    Scissors scissors;
+    double initialLength= testHair.getLength();
+    scissors.useTool(testHair);
+    assert(testHair.getLength()==initialLength - 0.5);
+    assert(testHair.getCondition()=="Healthy");
 
     std::cout<<"All tests Passed successfully!\n\n";
 }
